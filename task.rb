@@ -55,7 +55,7 @@ def q7
   array = ["1", "2", "3", "4", "5"]
 
   # 以下に回答を記載
-  array = array.map{ |n| n.to_i}
+  array = array.map(&:to_i)
   # 以下は変更しないで下さい
   p array
 end
@@ -84,20 +84,31 @@ def q10
   foods = %w(いか たこ うに しゃけ うにぎり うに軍艦 うに丼)
 
   # 以下に回答を記載
-
+  foods.each do|food| 
+    if food.include?("うに")
+      puts "#{food}は好物です"
+    else
+      puts "#{food}はまぁまぁ好きです"
+    end
+  end  
 end
 
 def q11
   sports = ["サッカー", "バスケ", "野球", ["フットサル", "野球"], "水泳", "ハンドボール", ["卓球", "サッカー", "ボルダリング"]]
 
   # 以下に回答を記載
+  puts "ユーザーの趣味一覧"
 
+  sports.flatten.uniq.each.with_index(1) do |sport ,index |
+  puts "No#{index} #{sport}" 
+  end
 end
 
 def q12
-  data = { user: { name: "satou", age: 33 } }
+  data = { user: { name: "satou", age: 33 }}
 
   # 以下に回答を記載
+  puts data[:user][:name]
 
 end
 
@@ -106,14 +117,15 @@ def q13
   update_data = { age: 32, address: "沖縄" }
 
   # 以下に回答を記載
-
-end
+  p user_data.update(update_data)
+end 
 
 def q14
   data = { name: "satou", age: 33, address: "saitama", hobby: "soccer", email: "hoge@fuga.com" }
 
   # 以下に回答を記載
-
+  data = data.keys
+  p data
 end
 
 def q15
@@ -121,6 +133,14 @@ def q15
   data2 = { name: "yamada", hobby: "baseball", role: "normal" }
 
   # 以下に回答を記載
+
+  if data1.has_key?(:age)
+    puts "OK"
+  else
+    puts "NG"
+  end
+  #三項演算子のほうがみやすい？
+  puts data2.has_key?(:age) ? "OK" : "NG"
 
 end
 
@@ -133,7 +153,9 @@ def q16
   ]
 
   # 以下に回答を記載
-
+  users.each do |user|
+    puts "私の名前#{user[:name]}はです。年齢は#{user[:age]}歳です."
+  end
 end
 
 class UserQ17
