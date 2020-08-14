@@ -20,9 +20,9 @@ end
 
 def q3
   numbers = [1, 5, 8, 10, 2, 3, 2, 3, 3, 1, 4, 5, 9]
-  p numbers.count(3)
+  
   # 以下に回答を記載
-
+  p numbers.count(3)
 end
 
 def q4
@@ -160,10 +160,10 @@ end
 
 class UserQ17
   # 以下に回答を記載
-  def initialize(name:,age:,gender:)
-    @name = name
-    @age = age
-    @gender = gender
+  def initialize(**params)
+    @name = params[:name]
+    @age = params[:age]
+    @gender = params[:gender]
   end
   def info
     puts <<~EOS
@@ -186,7 +186,19 @@ end
 
 class UserQ18
   # 以下に回答を記載
+  def initialize(**params)
+    @name = params[:name]
+    @age = params[:age]    
+  end
 
+  def introduce
+    if @age >= 16
+      "こんにちは,#{@name}と申します。宜しくお願いします。"
+    else
+      "はいさいまいど〜,#{@name}です!!"
+    end
+
+  end
 end
 
 def q18
@@ -200,11 +212,13 @@ end
 
 class Item
   # 以下を修正して下さい
+  attr_reader :name
 
-  def initialize(name)
+  def initialize(name:)
     @name = name
   end
 end
+
 
 def q19
   # ここは変更しないで下さい
@@ -214,27 +228,49 @@ end
 
 class UserQ20
   # 以下に回答を記載
-
+  attr_reader :name, :age
+  def initialize(**user)
+    @name = user[:name]
+    @age = user[:age]
+  end
 end
 
 class Zoo
   # 以下に回答を記載
+  def initialize(**params)
+    @infant = params[:entry_fee][:infant]
+    @children = params[:entry_fee][:children]
+    @adult = params[:entry_fee][:adult]
+    @senior = params[:entry_fee][:senior]
+  end
 
+  def info_entry_fee(user)
+    admission_fee = case user.age
+    when 0..5
+      @infant
+    when 6..12
+      @children
+    when 13..64
+      @adult
+    when 65..120
+      @senior
+    end
+    puts "#{user.name}さんの入場料金は#{admission_fee}円です"
+  end
 end
-
-
 def q20
   # ここは変更しないで下さい（動物園・ユーザー情報は変更していただいてOKです）
   zoo = Zoo.new(name: "旭山動物園", entry_fee: { infant: 0, children: 400, adult: 800, senior: 500 })
-
   users = [
     UserQ20.new(name: "たま", age: 3),
     UserQ20.new(name: "ゆたぼん", age: 10),
     UserQ20.new(name: "あじー", age: 32),
     UserQ20.new(name: "ぎん", age: 108)
   ]
-
   users.each do |user|
     zoo.info_entry_fee(user)
   end
 end
+
+
+
